@@ -119,7 +119,7 @@ alias gd="git diff"
 alias cl="clear"
 alias gpu="watch nvidia-smi"
 alias top="python3 -m bpytop"
-
+alias gpa="git all pull"
 
 alias gatekeeperdisable="sudo spctl --master-disable"
 
