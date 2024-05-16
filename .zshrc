@@ -106,12 +106,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias gl="git log --oneline"
-alias build="source ~/.zshrc"
+alias build="exec zsh"
 alias config="code ~/.zshrc"
 alias path="echo $PATH"
-# alias ..=".. && ls"
-alias .="ls"
 alias gl="git log --oneline"
 alias ga="git add"
 alias gaa="git add --all"
@@ -149,7 +146,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-chpwd (){ ls; }
+alias .="echo CWD: $(pwd) && echo && ls"
+chpwd (){ echo CWD: $(pwd) && echo && ls; }
 source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
