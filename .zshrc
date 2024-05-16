@@ -121,7 +121,17 @@ alias gpu="watch nvidia-smi"
 alias top="python3 -m bpytop"
 alias gpa="git all pull"
 
-alias gatekeeperdisable="sudo spctl --master-disable"
+fetch-all-branches(){
+    for d in */ ; do
+        cd "$d"
+        git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+        git fetch --all
+        git pull --all
+        cd ..
+    done
+}
+
+# alias gatekeeperdisable="sudo spctl --master-disable"
 
 # export PATH="/usr/local/opt/qt@5/bin:$HOME/Downloads/platform-tools:$PATH"
 
