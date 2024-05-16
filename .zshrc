@@ -112,6 +112,13 @@ alias config="code ~/.zshrc"
 alias path="echo $PATH"
 # alias ..=".. && ls"
 alias .="ls"
+alias gl="git log --oneline"
+alias ga="git add"
+alias gaa="git add --all"
+alias gd="git diff"
+alias cl="clear"
+alias gpu="watch nvidia-smi"
+alias top="python3 -m bpytop"
 
 
 alias gatekeeperdisable="sudo spctl --master-disable"
