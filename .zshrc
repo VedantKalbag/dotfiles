@@ -117,6 +117,7 @@ alias cl="clear"
 alias gpu="watch nvidia-smi"
 alias top="python3 -m bpytop"
 alias gpa="git all pull"
+alias sr="screen -r"
 
 fetch-all-branches(){
     for d in */ ; do
@@ -127,6 +128,11 @@ fetch-all-branches(){
         cd ..
     done
 }
+
+function count(){
+    ls -l $1 | egrep -c '^-'
+}
+
 
 # alias gatekeeperdisable="sudo spctl --master-disable"
 
