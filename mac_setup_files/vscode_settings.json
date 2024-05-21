@@ -1,0 +1,87 @@
+{
+    "tabnine.experimentalAutoImports": true,
+    "git.autofetch": true,
+    "notebook.cellFocusIndicator": "border",
+    "git.confirmSync": false,
+    "workbench.iconTheme": "vscode-icons",
+    "jupyter.askForKernelRestart": false,
+    "notebook.lineNumbers": "on",
+    "terminal.integrated.inheritEnv": false,
+    "git.enableSmartCommit": true,
+    "workbench.colorTheme": "Atom One Dark",
+    "notebook.output.textLineLimit": 50,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "editor.inlineSuggest.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": false,
+        "yaml": true,
+        "python": true
+    },
+    "files.autoSave": "afterDelay",
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "git.ignoreRebaseWarning": true,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.startupEditor": "none",
+    "security.workspace.trust.untrustedFiles": "open",
+    "githubPullRequests.createOnPublishBranch": "never",
+    "workbench.editor.enablePreview": false,
+    "gitlens.graph.minimap.additionalTypes": [
+        "localBranches",
+        "stashes",
+        "remoteBranches"
+    ],
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "debug.console.closeOnEnd": true,
+    "debug.toolBarLocation": "docked",
+    "python.analysis.indexing": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.inlayHints.callArgumentNames": "partial",
+    "workbench.editorLargeFileConfirmation": 400,
+    "gitlens.graph.minimap.dataType": "lines",
+    "editor.minimap.enabled": false,
+    "editor.snippetSuggestions": "inline",
+    "editor.linkedEditing": true,
+    "breadcrumbs.enabled": true,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 0,
+    "editor.fontSize": 16,
+    "markdown.preview.scrollEditorWithPreview": true,
+    "markdown.preview.scrollPreviewWithEditor": true,
+    "terminal.explorerKind": "external",
+    "terminal.external.osxExec": "iTerm.app",
+    // "terminal.integrated.shell.osx": "zsh",
+    // "workbench.editor.tabCloseButton": "right",
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.panel.defaultLocation": "bottom",
+    "workbench.settings.editor": "json",
+    "workbench.sideBar.location": "right",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "editor.accessibilitySupport": "off",
+    "remote.SSH.configFile": "~/.ssh/config",
+    "remote.SSH.enableAgentForwarding": true,
+    // "remote.SSH.showLoginTerminal": true,
+    // "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "sfx-generation": "linux"
+    },
+    "gitlens.views.commitDetails.files.layout": "tree",
+}
