@@ -83,7 +83,7 @@ defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandle
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.data;LSHandlerRoleAll=com.googlecode.iterm2;}'
 
 # Launch background utility apps
-open -a Rectangle
+open -a "Rectangle Pro"
 open -a "Alt-Tab"
 open -a HiddenBar
 open -a Stats
