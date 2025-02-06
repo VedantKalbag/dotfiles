@@ -16,7 +16,7 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Install Homebrew and apps
-brew install rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg 
+brew install rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian  
 brew tap homebrew/cask-fonts
 brew install --cask font-jetbrains-mono
 brew install zsh
