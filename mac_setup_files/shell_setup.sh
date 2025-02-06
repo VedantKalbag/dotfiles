@@ -46,7 +46,7 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Install Homebrew and apps
-brew install rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian  
+brew install git rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2  
 brew tap homebrew/cask-fonts
 brew install --cask font-jetbrains-mono
 brew install zsh
@@ -62,3 +62,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Install XCode CLI Tools
+xcode-select --install 2>&1 | grep "xcode-select" > /dev/null || echo "Xcode CLI tools installed"
