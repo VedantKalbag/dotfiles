@@ -1,5 +1,8 @@
 #/bin/bash
 
+# Install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 # Sets the key repeat rate to maximum speed (0 = fastest)
 defaults write NSGlobalDomain KeyRepeat -int 0
 
