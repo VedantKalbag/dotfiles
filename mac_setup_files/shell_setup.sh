@@ -1,19 +1,48 @@
 #/bin/bash
 
+# Sets the key repeat rate to maximum speed (0 = fastest)
 defaults write NSGlobalDomain KeyRepeat -int 0
-defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
-defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+
+# Sets how long before a held key starts repeating (10 = 150ms, faster than default 15 = 225ms)
+defaults write -g InitialKeyRepeat -int 10
+
+# Sets the key repeat interval (1 = 15ms, faster than default 2 = 30ms)
+defaults write -g KeyRepeat -int 1
+
+# Makes window resizing nearly instant by setting animation time to 0.001 seconds
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Speeds up Mission Control page switching animation to 0.2 seconds
 defaults write com.apple.dock springboard-page-duration -float .2
+
+# Sets Mission Control show animation to 0.1 seconds
 defaults write com.apple.dock springboard-show-duration -float .1
+
+# Sets Mission Control hide animation to 0.1 seconds
 defaults write com.apple.dock springboard-hide-duration -float .1
+
+# Removes the delay before the Dock shows when auto-hide is enabled
 defaults write com.apple.dock autohide-delay -float 0
+
+# Makes the Dock show/hide animation instant
 defaults write com.apple.dock autohide-time-modifier -int 0
+
+# Disables the animation when launching applications from the Dock
 defaults write com.apple.dock launchanim -bool false
+
+# Speeds up Quick Look window animations to 0.01 seconds
 defaults write -g QLPanelAnimationDuration -float 0.01
+
+# Enables right-click on trackpad
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+
+# Restarts the Dock to apply changes
 killall Dock
+
+# Disables all animations in Finder
 defaults write com.apple.finder DisableAllAnimations -bool true
+
+# Restarts Finder to apply changes
 killall Finder
 
 # Install Homebrew and apps
