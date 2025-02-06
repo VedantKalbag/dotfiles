@@ -1,5 +1,8 @@
 #/bin/bash
 
+# Install XCode CLI Tools
+xcode-select --install 2>&1 | grep "xcode-select" > /dev/null || echo "Xcode CLI tools installed"
+
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -70,5 +73,29 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# Install XCode CLI Tools
-xcode-select --install 2>&1 | grep "xcode-select" > /dev/null || echo "Xcode CLI tools installed"
+# Set iTerm2 as default terminal
+defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
+defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
+osascript -e 'tell application "Terminal" to quit'
+open -a iTerm
+sleep 2
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.unix-executable;LSHandlerRoleAll=com.googlecode.iterm2;}'
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.data;LSHandlerRoleAll=com.googlecode.iterm2;}'
+
+# Launch background utility apps
+open -a Rectangle
+open -a "Alt-Tab"
+open -a HiddenBar
+open -a Stats
+open -a Itsycal
+open -a KeepingYouAwake
+open -a RayCast
+
+# Configure apps to start at login
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Rectangle.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AltTab.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/HiddenBar.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Stats.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Itsycal.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/KeepingYouAwake.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Raycast.app", hidden:false}'
