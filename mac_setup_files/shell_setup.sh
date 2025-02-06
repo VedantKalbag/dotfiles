@@ -1,82 +1,69 @@
-#/bin/bash
+#!/bin/bash
 
-# Install XCode CLI Tools
-xcode-select --install 2>&1 | grep "xcode-select" > /dev/null || echo "Xcode CLI tools installed"
+# Install XCode CLI Tools if not installed
+if ! xcode-select -p &>/dev/null; then
+    xcode-select --install
+    echo "Xcode CLI tools installed"
+else
+    echo "Xcode CLI tools already installed"
+fi
 
-# Install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install Homebrew if not installed
+if ! command -v brew &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo "Homebrew already installed"
+fi
 
-# Add Homebrew to PATH
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Sets the key repeat rate to maximum speed (0 = fastest)
+# System preferences tweaks
 defaults write NSGlobalDomain KeyRepeat -int 0
-
-# Sets how long before a held key starts repeating (10 = 150ms, faster than default 15 = 225ms)
 defaults write -g InitialKeyRepeat -int 10
-
-# Sets the key repeat interval (1 = 15ms, faster than default 2 = 30ms)
 defaults write -g KeyRepeat -int 1
-
-# Makes window resizing nearly instant by setting animation time to 0.001 seconds
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-
-# Speeds up Mission Control page switching animation to 0.2 seconds
 defaults write com.apple.dock springboard-page-duration -float .2
-
-# Sets Mission Control show animation to 0.1 seconds
 defaults write com.apple.dock springboard-show-duration -float .1
-
-# Sets Mission Control hide animation to 0.1 seconds
 defaults write com.apple.dock springboard-hide-duration -float .1
-
-# Removes the delay before the Dock shows when auto-hide is enabled
 defaults write com.apple.dock autohide-delay -float 0
-
-# Makes the Dock show/hide animation instant
 defaults write com.apple.dock autohide-time-modifier -int 0
-
-# Disables the animation when launching applications from the Dock
 defaults write com.apple.dock launchanim -bool false
-
-# Speeds up Quick Look window animations to 0.01 seconds
 defaults write -g QLPanelAnimationDuration -float 0.01
-
-# Enables right-click on trackpad
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-
-# Restarts the Dock to apply changes
 killall Dock
 
-# Disables all animations in Finder
 defaults write com.apple.finder DisableAllAnimations -bool true
-
-# Restarts Finder to apply changes
 killall Finder
 
-# Install Homebrew and apps
-brew install git rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2  
+# Install Homebrew packages
+brew install git rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2
 brew tap homebrew/cask-fonts
 brew install --cask font-jetbrains-mono
 brew install zsh
 
-# Install Miniconda
-mkdir -p ~/miniconda3
-curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
-bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-rm -rf ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init zsh
+# Install Miniconda if not installed
+if [ ! -d "$HOME/miniconda3" ]; then
+    mkdir -p ~/miniconda3
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+    bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+    rm -rf ~/miniconda3/miniconda.sh
+    ~/miniconda3/bin/conda init zsh
+    echo "Miniconda installed"
+else
+    echo "Miniconda already installed"
+fi
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-# Add configuration to .zshrc
-echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+# Install oh-my-zsh if not installed
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
+    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+else
+    echo "oh-my-zsh already installed"
+fi
 
 # Set iTerm2 as default terminal
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
@@ -88,19 +75,11 @@ defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandle
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.data;LSHandlerRoleAll=com.googlecode.iterm2;}'
 
 # Launch background utility apps
-open -a "Rectangle Pro"
-open -a "Alt-Tab"
-open -a HiddenBar
-open -a Stats
-open -a Itsycal
-open -a KeepingYouAwake
-open -a RayCast
+for app in "Rectangle Pro" "Alt-Tab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "RayCast"; do
+    open -a "$app"
+done
 
 # Configure apps to start at login
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Rectangle Pro.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AltTab.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/HiddenBar.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Stats.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Itsycal.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/KeepingYouAwake.app", hidden:false}'
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Raycast.app", hidden:false}'
+for app in "Rectangle Pro" "AltTab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "Raycast"; do
+    osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"/Applications/$app.app\", hidden:false}"
+done
