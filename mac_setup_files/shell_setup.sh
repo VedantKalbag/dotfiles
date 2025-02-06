@@ -3,6 +3,10 @@
 # Install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Add Homebrew to PATH
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Sets the key repeat rate to maximum speed (0 = fastest)
 defaults write NSGlobalDomain KeyRepeat -int 0
 
