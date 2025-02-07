@@ -59,8 +59,9 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone "https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git" ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoswitch_virtualenv
     echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting autoswitch_virtualenv)' >> ~/.zshrc
 else
     echo "oh-my-zsh already installed"
 fi
@@ -74,12 +75,12 @@ sleep 2
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.unix-executable;LSHandlerRoleAll=com.googlecode.iterm2;}'
 defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.data;LSHandlerRoleAll=com.googlecode.iterm2;}'
 
-# Launch background utility apps
-for app in "Rectangle Pro" "Alt-Tab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "RayCast"; do
-    open -a "$app"
-done
-
 # Configure apps to start at login
 for app in "Rectangle Pro" "AltTab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "Raycast"; do
     osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"/Applications/$app.app\", hidden:false}"
+done
+
+# Launch background utility apps
+for app in "Rectangle Pro" "Alt-Tab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "RayCast"; do
+    open -a "$app"
 done
