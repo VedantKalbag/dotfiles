@@ -1,0 +1,18 @@
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = VedantKalbag
+	email = vedant.kalbag@gmail.com
+[core]
+	autocrlf = input
+	excludesfile = /Users/vedant/.gitignore_global
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[alias]
+	all = "!f() { ls -R -d */.git | xargs -P10 -I{} bash -c \"echo {} && git -C {}/../ $1\"; }; f"
