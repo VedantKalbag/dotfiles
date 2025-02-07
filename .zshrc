@@ -72,6 +72,45 @@ function count(){
     ls -l $1 | egrep -c '^-'
 }
 
+gpu-kill() {
+    pids=$(nvidia-smi --query-compute-apps=pid --format=csv,noheader,nounits)
+    if [[ -z "$pids" ]]; then
+        echo "No GPU processes found."
+        return 0
+    fi
+    echo "Killing GPU processes: $pids"
+    echo "$pids" | xargs -I {} sudo kill -9 {}
+    echo "All GPU compute processes have been terminated."
+}
+
+git-multi() {
+    local cmd=${1:-"pull --all"} # Default command is `git pull --all` if none is given
+    find . -maxdepth 1 -type d | while read repo; do
+        if [ -d "$repo/.git" ]; then
+            echo "✅ Found Git repo: $repo"
+        else
+            continue
+        fi
+        (
+            cd "$repo" || exit
+            # Track all remote branches
+            git branch -r | grep -v '\->' | while read remote; do 
+                local_branch="${remote#origin/}"
+                if ! git show-ref --verify --quiet "refs/heads/$local_branch"; then
+                    echo "🌿 Tracking remote branch: $local_branch"
+                    git branch --track "$local_branch" "$remote" 2>/dev/null
+                fi
+            done
+            # Fetch and run the command
+            echo "🚀 Running 'git fetch --all'"
+            git fetch --all --prune
+            echo "🔄 Running 'git $cmd'"
+            git $cmd
+        ) &
+    done
+    wait
+}
+
 # Conda Initialization (Portable)
 if [ -d "$HOME/miniconda3" ]; then
   __conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
