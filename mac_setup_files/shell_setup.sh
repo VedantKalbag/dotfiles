@@ -36,10 +36,8 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Install Homebrew packages
-brew install git rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2
-brew tap homebrew/cask-fonts
-brew install --cask font-jetbrains-mono
-brew install zsh
+brew install git zsh rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2 font-jetbrains-mono
+chsh -s $(which zsh) $USER
 
 # Install Miniconda if not installed
 if [ ! -d "$HOME/miniconda3" ]; then
@@ -84,3 +82,4 @@ done
 for app in "Rectangle Pro" "Alt-Tab" "HiddenBar" "Stats" "Itsycal" "KeepingYouAwake" "RayCast"; do
     open -a "$app"
 done
+exec zsh
