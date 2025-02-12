@@ -32,7 +32,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM}/t
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions || echo "zsh-autosuggestions already installed."
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting || echo "zsh-syntax-highlighting already installed."
 git clone https://github.com/rutchkiwi/copyzshell.git ${ZSH_CUSTOM}/plugins/copyzshell || echo "copyzshell already installed."
-
+git clone https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git ${ZSH_CUSTOM}/plugins/autoswitch_virtualenv || echo "zsh-sautoswitch-virtualenv already installed."
 echo "Plugins and themes setup complete."
 
 # Change default shell to zsh
@@ -60,6 +60,32 @@ if [ ! -d "$MINICONDA_PATH" ]; then
 else
   echo "Miniconda is already installed."
 fi
+
+# Update .zshrc from GitHub
+echo "Updating .zshrc from GitHub..."
+ZSHRC_URL="https://raw.githubusercontent.com/VedantKalbag/dotfiles/main/linux_server_setup/.zshrc"
+
+# Backup existing .zshrc if it exists
+if [ -f "$HOME/.zshrc" ]; then
+    echo "Backing up existing .zshrc to ~/.zshrc.backup"
+    mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
+fi
+
+# Download new .zshrc
+if command -v curl &>/dev/null; then
+    curl -fsSL "$ZSHRC_URL" -o "$HOME/.zshrc"
+elif command -v wget &>/dev/null; then
+    wget -q "$ZSHRC_URL" -O "$HOME/.zshrc"
+else
+    echo "Error: Neither curl nor wget is installed. Cannot fetch .zshrc."
+    exit 1
+fi
+
+# Ensure correct ownership and permissions
+chown $USER:$USER "$HOME/.zshrc"
+chmod 644 "$HOME/.zshrc"
+
+echo "Successfully updated .zshrc from GitHub."
 
 # Ensure Powerlevel10k theme and plugins are configured in .zshrc
 echo "Configuring .zshrc..."
