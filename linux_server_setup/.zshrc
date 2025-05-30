@@ -51,7 +51,7 @@ chpwd() {
   local file_count
   file_count=$(ls -A | wc -l)  # Count all files and directories (including hidden ones)
 
-  if [ "$file_count" -lt 100 ]; then
+  if [ "$file_count" -lt 10 ]; then
     ls -A  # Show all files, including hidden ones
   else
     echo "[INFO] Directory contains $file_count items. Not listing to avoid clutter."
@@ -69,7 +69,7 @@ fetch-all-branches(){
 }
 
 function count(){
-    ls -l $1 | egrep -c '^-'
+    find $1 -type f | wc -l
 }
 
 gpu-kill() {
@@ -109,6 +109,48 @@ git-multi() {
         ) &
     done
     wait
+}
+
+traverse() {
+  local dir="$1"
+  local prefix="${2:-}"
+  local is_root="${3:-1}"
+
+  # Print root directory name
+  if [ "$is_root" -eq 1 ]; then
+    echo "$(basename "$PWD")"
+  fi
+
+  local entries=()
+  local count=0
+  while IFS= read -r entry; do
+    entries+=("$entry")
+    ((count++))
+    ((count >= 6)) && break  # fetch at most 6 to check for overflow
+  done < <(ls -1A "$dir" 2>/dev/null | sort)
+
+  local total=${#entries[@]}
+  local show_ellipsis=0
+  (( total == 6 )) && show_ellipsis=1
+  (( show_ellipsis )) && unset 'entries[5]'  # keep only first 5
+
+  for i in "${!entries[@]}"; do
+    local name="${entries[i]}"
+    local path="$dir/$name"
+    local is_last=$(( i == ${#entries[@]} - 1 && show_ellipsis == 0 ))
+    local connector=$([[ "$is_last" -eq 1 ]] && echo "└── " || echo "├── ")
+    echo "${prefix}${connector}${name}"
+    if [ -d "$path" ]; then
+      local new_prefix="$prefix"
+      new_prefix+=$([[ "$is_last" -eq 1 ]] && echo "    " || echo "│   ")
+      traverse "$path" "$new_prefix" 0
+    fi
+  done
+
+  # Show ellipsis if we had to truncate
+  if (( show_ellipsis )); then
+    echo "${prefix}└── ..."
+  fi
 }
 
 # Conda Initialization (Portable)
