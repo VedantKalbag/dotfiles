@@ -36,20 +36,20 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 killall Finder
 
 # Install Homebrew packages
-brew install git zsh rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2 font-jetbrains-mono
+brew install git zsh rectangle-pro raycast alt-tab hiddenbar stats itsycal keepingyouawake keka visual-studio-code wget ffmpeg git-credential-manager obsidian iterm2 font-jetbrains-mono bpytop 
 chsh -s $(which zsh) $USER
 
-# Install Miniconda if not installed
-if [ ! -d "$HOME/miniconda3" ]; then
-    mkdir -p ~/miniconda3
-    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
-    bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-    rm -rf ~/miniconda3/miniconda.sh
-    ~/miniconda3/bin/conda init zsh
-    echo "Miniconda installed"
-else
-    echo "Miniconda already installed"
-fi
+# # Install Miniconda if not installed
+# if [ ! -d "$HOME/miniconda3" ]; then
+#     mkdir -p ~/miniconda3
+#     curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+#     bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+#     rm -rf ~/miniconda3/miniconda.sh
+#     ~/miniconda3/bin/conda init zsh
+#     echo "Miniconda installed"
+# else
+#     echo "Miniconda already installed"
+# fi
 
 # Install oh-my-zsh if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
